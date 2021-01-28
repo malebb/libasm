@@ -6,11 +6,11 @@
 #    By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/17 19:40:00 by mlebrun           #+#    #+#              #
-#    Updated: 2021/01/27 18:55:04 by mlebrun          ###   ########.fr        #
+#    Updated: 2021/01/28 17:36:03 by mlebrun          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ft_strcpy.s ft_strlen.s ft_strcmp.s
+SRCS = ft_strcpy.s ft_strlen.s ft_strcmp.s ft_write.s ft_read.s
 
 OBJS = ${SRCS:.s=.o}
 
