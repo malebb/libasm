@@ -1,25 +1,41 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_strlen.s                                        :+:      :+:    :+:    ;
+;    ft_strcmp.s                                        :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2021/01/27 10:28:45 by mlebrun           #+#    #+#              ;
-;    Updated: 2021/01/27 10:28:56 by mlebrun          ###   ########.fr        ;
+;    Created: 2021/01/27 10:27:55 by mlebrun           #+#    #+#              ;
+;    Updated: 2021/01/28 10:51:03 by mlebrun          ###   ########.fr        ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 section .text
-	global ft_strlen
-ft_strlen:
-	mov rax, 0
-	call _browse_str
-_browse_str:
+	global ft_strcmp
+
+ft_strcmp:
 	cmp byte [rdi], 0
-	jne _update
+	jne _cmpchar
+	cmp byte [rsi], 0
+	jne _inferior
+	mov rax, 0
 	ret
-_update:
-	inc rax
+
+_cmpchar:
+	cmp byte [rsi], 0
+	je _superior
+	mov al, byte [rsi]
+	cmp byte [rdi], al
+	jl _inferior
+	jg _superior
 	inc rdi
-	jmp _browse_str
+	inc rsi
+	jmp ft_strcmp
+
+_inferior:
+	mov rax, -1
+	ret
+	
+_superior:
+	mov rax, 1
+	ret
