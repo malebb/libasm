@@ -6,11 +6,12 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:49:32 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/01/28 18:33:50 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/01/29 11:18:51 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
@@ -22,6 +23,7 @@ char		*ft_strcpy(char *dest, const char *src);
 int			ft_strcmp(const char *s1, const char *s2);
 ssize_t		ft_write(int fd, const void *buf, size_t count);
 ssize_t		ft_read(int fd, void *buf, size_t count);
+char		*ft_strdup(const char *s);
 
 int	main(void)
 {
@@ -60,14 +62,6 @@ int	main(void)
 	printf("mine     : %d\n", ft_strcmp("s", ""));
 	printf("\n");
 
-	printf("| %zd \n", ft_write(1, s1, 15));
-	printf("| %zd \n", write(1, s1, 15));
-	strcpy(s1, "but it's a secret");
-	printf("| %zd \n", ft_write(1, s1, 159));
-	printf("| %zd \n", write(1, s1, 159));
-	printf("| %zd \n", ft_write(1, s1, 159));
-	printf("| %zd \n", write(1, s1, 159));
-	printf("\n");
 
 	printf("#4 write: \n");
 	strcpy(s1, "i love pancakes");
@@ -85,7 +79,6 @@ int	main(void)
 	printf("expected : ");
 	fflush(stdout);
 	printf(" | %zd | %d\n", write(1, s1, 9), errno);
-	printf("\n");
 
 	strcpy(s1, "");
 	printf("mine     : ");
@@ -112,6 +105,17 @@ int	main(void)
 	printf("mine     : %zd | %s | %d \n", ft_read(fd, buffer_2, 36), buffer_2, errno);
 	lseek(fd, 0, SEEK_SET);
 	printf("expected : %zd | %s | %d \n", read(fd, buffer, 36), buffer, errno);
+	printf("\n");
 
+	printf("#5 strdup: \n");
+	printf("mine     : %s\n", s1 = ft_strdup("i wish i was a rainbow"));
+	free(s1);
+	printf("expected : %s\n", s1 = strdup("i wish i was a rainbow"));
+	free(s1);
+	printf("mine     : %s\n", s1 = ft_strdup(""));
+	free(s1);
+	printf("expected : %s\n", s1 = strdup(""));
+	free(s1);
+	
 	return (0);
 }
