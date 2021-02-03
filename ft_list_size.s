@@ -1,42 +1,37 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_strcmp.s                                        :+:      :+:    :+:    ;
+;    ft_list_size.s                                     :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2021/01/27 10:27:55 by mlebrun           #+#    #+#              ;
-;    Updated: 2021/01/30 15:29:04 by mlebrun          ###   ########.fr        ;
+;    Created: 2021/02/03 14:58:26 by mlebrun           #+#    #+#              ;
+;    Updated: 2021/02/03 21:34:25 by mlebrun          ###   ########.fr        ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
 section .text
-	global ft_strcmp
+	global ft_list_size
 
-ft_strcmp:
-	cmp byte [rdi], 0
-	jne _cmpchar
-	cmp byte [rsi], 0
-	jne _inferior
+ft_list_size:
+	cmp rdi, 0
+	je _empty_lst
+	mov r11, 0
+	jmp _browse_lst
 
+_empty_lst:
 	mov rax, 0
 	ret
 
-_cmpchar:
-	cmp byte [rsi], 0
-	je _superior
-	mov al, byte [rsi]
-	cmp byte [rdi], al
-	jl _inferior
-	jg _superior
-	inc rdi
-	inc rsi
-	jmp ft_strcmp
+_browse_lst:
+	inc r11
+	push qword [rdi + 8]
+	pop r10
+	cmp r10, 0
+	mov rdi, r10
+	je _ret
+	jmp _browse_lst
 
-_inferior:
-	mov rax, -1
-	ret
-	
-_superior:
-	mov rax, 1
+_ret:
+	mov rax, r11
 	ret
