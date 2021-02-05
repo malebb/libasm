@@ -6,12 +6,12 @@
 #    By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/17 19:40:00 by mlebrun           #+#    #+#              #
-#    Updated: 2021/02/03 14:58:10 by mlebrun          ###   ########.fr        #
+#    Updated: 2021/02/05 14:13:58 by mlebrun          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = ft_strcpy.s ft_strlen.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s \
-	   ft_atoi_base.s ft_list_size.s
+	   ft_atoi_base.s ft_list_size.s ft_list_push_front.s
 
 OBJS = ${SRCS:.s=.o}
 

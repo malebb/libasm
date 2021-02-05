@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:49:32 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/03 21:41:23 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/05 16:01:57 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stddef.h>
+
 typedef struct		s_list
 {
 	void			*data;
@@ -34,6 +35,31 @@ int			ft_atoi_base(char *str, char *base);
 int			atoi_base(char *str, char *base);
 int			ft_list_size(t_list *begin_list);
 int			list_size(t_list *begin_list);
+void		list_push_front(t_list **begin_list, void *data);
+void		ft_list_push_front(t_list **begin_list, void *data);
+void		fill_address(char *dst, char *src);
+
+t_list		*create_elem(void *data)
+{
+	t_list		*elem;
+
+	if (!(elem = malloc(sizeof(t_list) * (1))))
+		return (NULL);
+	elem->data = data;
+	elem->next = NULL;
+	return (elem);
+}
+
+void		list_push_front(t_list **begin_list, void *data)
+{
+	t_list		*new_elem;
+
+	if (!begin_list || !(*begin_list) || !data)
+		return ;
+	new_elem = create_elem(data);
+	new_elem->next = *begin_list;
+	*begin_list = new_elem;
+}
 
 int			list_size(t_list *begin_list)
 {
@@ -50,6 +76,19 @@ int			list_size(t_list *begin_list)
 	return (size);
 }	
 
+void	put_lst(t_list *begin_list)
+{
+	int		i;
+
+	i = 1;
+	while (begin_list != 0)
+	{
+		printf("link #%d : data = %s\n", i, (char *)begin_list->data);
+		begin_list = begin_list->next;
+		i++;
+	}
+}
+
 int	main(void)
 {
 	char		*s1;
@@ -65,6 +104,7 @@ int	main(void)
 	t_list		s3;
 	t_list		s4;
 	t_list		*elem;
+	char		*str;
 
 	printf("<--Mandatory part-->");
 	printf("\n");
@@ -154,14 +194,42 @@ int	main(void)
 	printf("<--Bonus part-->\n");
 	printf("\n");
 	/*
-	printf("#6 atoi_base: \n");
+	printf("#1 atoi_base: \n");
 	printf("mine     : %d\n", ft_atoi_base("ff", "0123456789abcdef"));
 	printf("expected : %d", atoi_base("ff", "0123456789abcdef"));
 	printf("return = %d\n", ft_strcmp("s", "saaa"));
 	printf("\n");
 	*/
 
-	printf("#8 list_size\n");	
+	printf("#2 list_push_front: \n");
+
+	printf("\n");
+
+	printf("initial list:\n");
+	s.data = "my ";
+	s.next = &s2;
+	s2.data = "friends ";
+	s2.next = 0;
+	elem = &s;
+	put_lst(elem);
+	printf("\n");
+	printf("mine	 :\n");
+	ft_list_push_front(&elem, "hi ");
+	put_lst(elem);
+
+	printf("\n");
+
+	printf("expected : \n");
+	s.data = "my ";
+	s.next = &s2;
+	s2.data = "friends ";
+	s2.next = 0;
+	elem = &s;
+	list_push_front(&elem, "hi ");
+	put_lst(elem);
+	printf("\n");
+
+	printf("#3 list_size:\n");
 
 	s.data = "hi ";
 	s.next = &s2;
@@ -179,5 +247,6 @@ int	main(void)
 	printf("expected : %d\n", list_size(NULL));
 
 	printf("\n");
+	
 	return (0);
 }
