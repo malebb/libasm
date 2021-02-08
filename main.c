@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:49:32 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/05 16:01:57 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/08 14:25:22 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ int			list_size(t_list *begin_list);
 void		list_push_front(t_list **begin_list, void *data);
 void		ft_list_push_front(t_list **begin_list, void *data);
 void		fill_address(char *dst, char *src);
+void 		ft_list_sort(t_list **begin_list, int (*cmp)());
+int			test_function(int (*ret_minus_one)());
+
+
+int		ret_minus_one()
+{
+	return (-1);
+}
 
 t_list		*create_elem(void *data)
 {
@@ -54,7 +62,7 @@ void		list_push_front(t_list **begin_list, void *data)
 {
 	t_list		*new_elem;
 
-	if (!begin_list || !(*begin_list) || !data)
+	if (!begin_list || !data)
 		return ;
 	new_elem = create_elem(data);
 	new_elem->next = *begin_list;
@@ -89,6 +97,37 @@ void	put_lst(t_list *begin_list)
 	}
 }
 
+void		list_sort(t_list **begin_list, int (*cmp)())
+{
+	t_list		*first_elem;
+	void		*data;
+	int			change;
+
+	first_elem = *begin_list;
+	while ((*begin_list)->next != 0)
+	{
+		change = 0;
+		if ((*cmp)((*begin_list)->data, (*begin_list)->next->data) > 0)
+		{
+			data = (*begin_list)->data;
+			(*begin_list)->data = (*begin_list)->next->data;
+			(*begin_list)->next->data = data;
+			*begin_list = first_elem;
+			change = 1;
+		}
+		if (!change)
+			*begin_list = (*begin_list)->next;
+	}
+	*begin_list = first_elem;
+}
+
+int		ft_print_arg(char *s1, char *s2)
+{
+//	printf("s1 = %s\n", s1);
+//	printf("s2 = %s\n", s2);
+	return ((signed)-1);
+}
+
 int	main(void)
 {
 	char		*s1;
@@ -103,7 +142,9 @@ int	main(void)
 	t_list		s2;
 	t_list		s3;
 	t_list		s4;
+	t_list		*l;
 	t_list		*elem;
+	
 	char		*str;
 
 	printf("<--Mandatory part-->");
@@ -228,6 +269,20 @@ int	main(void)
 	list_push_front(&elem, "hi ");
 	put_lst(elem);
 	printf("\n");
+	
+	elem = NULL;
+	printf("initial  :\n");
+	printf("<<empty list>>\n");
+	printf("\n");
+	printf("mine     : \n");
+	ft_list_push_front(&elem, "first elem added");
+	put_lst(elem);
+	printf("\n");
+	printf("expected : \n");
+	elem = NULL;
+	list_push_front(&elem, "first elem added");
+	put_lst(elem);
+	printf("\n");
 
 	printf("#3 list_size:\n");
 
@@ -247,6 +302,57 @@ int	main(void)
 	printf("expected : %d\n", list_size(NULL));
 
 	printf("\n");
-	
+
+	printf("#4 list_sort:\n");
+	elem = NULL;
+	list_push_front(&elem, strdup("a"));
+	list_push_front(&elem, strdup("b"));
+	list_push_front(&elem, strdup("c"));
+	list_push_front(&elem, strdup("d"));
+	printf("\n");
+	printf("\n");
+
+	printf("initial :\n");
+	put_lst(elem);
+	printf("\n");
+	printf("mine    : \n");
+	ft_list_sort(&elem, strcmp);
+	put_lst(elem);
+	printf("\n");
+	elem = NULL;
+	list_push_front(&elem, strdup("a"));
+	list_push_front(&elem, strdup("b"));
+	list_push_front(&elem, strdup("c"));
+	list_push_front(&elem, strdup("d"));
+
+	printf("expected: \n");
+	list_sort(&elem, strcmp);
+	put_lst(elem);
+	elem = NULL;
+	list_push_front(&elem, strdup("hello France"));
+	list_push_front(&elem, strdup("we are good"));
+	list_push_front(&elem, strdup("i love water"));
+	list_push_front(&elem, strdup("waves in the sea"));
+
+	printf("initial :\n");
+	put_lst(elem);
+	printf("\n");
+	printf("mine    : \n");
+	ft_list_sort(&elem, strcmp);
+	put_lst(elem);
+	printf("\n");
+	elem = NULL;
+	list_push_front(&elem, strdup("hello France"));
+	list_push_front(&elem, strdup("we are good"));
+	list_push_front(&elem, strdup("i love water"));
+	list_push_front(&elem, strdup("waves in the sea"));
+	printf("expected: \n");
+	list_sort(&elem, strcmp);
+	put_lst(elem);
+	printf("\n");
+
+	printf("#5 list_remove_if\n");
+
+//	printf("%d", test_function(ret_minus_one));
 	return (0);
 }
