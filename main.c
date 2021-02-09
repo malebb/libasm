@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:49:32 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/08 14:25:22 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/09 17:43:12 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,45 @@ void		ft_list_push_front(t_list **begin_list, void *data);
 void		fill_address(char *dst, char *src);
 void 		ft_list_sort(t_list **begin_list, int (*cmp)());
 int			test_function(int (*ret_minus_one)());
+void		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
-
-int		ret_minus_one()
+void		free_fct(void *data)
 {
-	return (-1);
+	free(data);
 }
+
+void		list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *))
+{
+	t_list		*previous_elem;
+	t_list		*next_elem;
+	t_list		*first_elem;
+
+	if (!begin_list || !(*begin_list) || !data_ref || !cmp || !free_fct)
+		return ;
+	first_elem = *begin_list;
+	previous_elem = NULL;
+	while (*begin_list != 0)
+	{
+		if ((*cmp)((*begin_list)->data, data_ref) == 0)
+		{
+			if (previous_elem != NULL)
+				previous_elem->next = (*begin_list)->next;
+			else
+				first_elem = (*begin_list)->next;
+			next_elem = (*begin_list)->next;
+			(*free_fct)((*begin_list)->data);
+			(*free_fct)(*begin_list);
+			*begin_list = (*begin_list)->next;
+		}
+		else
+		{
+			previous_elem = *begin_list;
+			*begin_list = (*begin_list)->next;
+		}
+	}
+	*begin_list = first_elem;
+}
+
 
 t_list		*create_elem(void *data)
 {
@@ -346,13 +379,37 @@ int	main(void)
 	list_push_front(&elem, strdup("we are good"));
 	list_push_front(&elem, strdup("i love water"));
 	list_push_front(&elem, strdup("waves in the sea"));
-	printf("expected: \n");
+	printf("expected  : \n");
 	list_sort(&elem, strcmp);
 	put_lst(elem);
 	printf("\n");
 
 	printf("#5 list_remove_if\n");
+	elem = NULL;
+	list_push_front(&elem, strdup("house"));
+	list_push_front(&elem, strdup("my"));
+	list_push_front(&elem, strdup("to"));
+	list_push_front(&elem, strdup("to"));
+	list_push_front(&elem, strdup("welcome"));
 
+	printf("initial  :\n");
+	put_lst(elem);
+	printf("\n");
+	printf("expected :\n");
+	list_remove_if(&elem, "to", strcmp, free_fct);
+	put_lst(elem);
+
+	elem = NULL;
+	list_push_front(&elem, strdup("house"));
+	list_push_front(&elem, strdup("my"));
+	list_push_front(&elem, strdup("to"));
+	list_push_front(&elem, strdup("to"));
+	list_push_front(&elem, strdup("welcome"));
+	printf("mine     :\n");
+	ft_list_remove_if(&elem, "to", strcmp, free_fct);
+	put_lst(elem);
+	printf("\n");
 //	printf("%d", test_function(ret_minus_one));
+
 	return (0);
 }
