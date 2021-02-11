@@ -1,25 +1,31 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_strlen.s                                        :+:      :+:    :+:    ;
+;    ft_write.s                                         :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2021/01/27 10:28:45 by mlebrun           #+#    #+#              ;
-;    Updated: 2021/02/03 21:43:44 by mlebrun          ###   ########.fr        ;
+;    Created: 2021/01/28 10:59:18 by mlebrun           #+#    #+#              ;
+;    Updated: 2021/02/11 18:56:37 by mlebrun          ###   ########.fr        ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
+extern __errno_location
+
 section .text
-	global ft_strlen
-ft_strlen:
-	mov rax, 0
-	call _browse_str
-_browse_str:
-	cmp byte [rdi], 0
-	jne _update
+	global ft_write
+
+ft_write:
+	mov rax, 1
+	syscall
+	cmp rax, 0
+	jl error
 	ret
-_update:
-	inc rax
-	inc rdi
-	jmp _browse_str
+
+error:
+	neg rax
+	push rax
+	call __errno_location
+	pop qword [rax]
+	mov rax, -1
+	ret
