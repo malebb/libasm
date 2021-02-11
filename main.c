@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:49:32 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/09 17:43:12 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/11 18:13:07 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,13 +267,6 @@ int	main(void)
 
 	printf("<--Bonus part-->\n");
 	printf("\n");
-	/*
-	printf("#1 atoi_base: \n");
-	printf("mine     : %d\n", ft_atoi_base("ff", "0123456789abcdef"));
-	printf("expected : %d", atoi_base("ff", "0123456789abcdef"));
-	printf("return = %d\n", ft_strcmp("s", "saaa"));
-	printf("\n");
-	*/
 
 	printf("#2 list_push_front: \n");
 
@@ -409,7 +402,17 @@ int	main(void)
 	ft_list_remove_if(&elem, "to", strcmp, free_fct);
 	put_lst(elem);
 	printf("\n");
-//	printf("%d", test_function(ret_minus_one));
+	
+	printf("#1 atoi_base: \n");
+	printf("mine     : %d\n", ft_atoi_base("2147483647", "0123456789"));
+	printf("expected : %d\n", atoi_base("2147483647", "0123456789"));
+	printf("mine     : %d\n", ft_atoi_base("ff", "0123456789abcdef"));
+	printf("expected : %d\n", atoi_base("ff", "0123456789abcdef"));
+	printf("mine     : %d\n", ft_atoi_base("    +++---seeeeb156", "mybase"));
+	printf("expected : %d\n", atoi_base("    +++---seeeeb156", "mybase"));
+	printf("\n");
+//	printf("ws = %d | %d | %d | %d | %d | %d\n", ' ', '\f', '\n', '\r', '\t', '\v');
+	
 
 	return (0);
 }
