@@ -1,12 +1,12 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_list_sort.s                                     :+:      :+:    :+:    ;
+;    ft_list_sort_bonus.s                               :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2021/02/05 18:43:41 by mlebrun           #+#    #+#              ;
-;    Updated: 2021/02/08 13:57:11 by mlebrun          ###   ########.fr        ;
+;    Updated: 2021/02/12 09:08:01 by mlebrun          ###   ########.fr        ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -49,9 +49,7 @@ _sort_data:
 	jmp browse_lst
 
 _switch_data:
-	push qword rdi
 	mov [r9], rsi
-	pop rdi
 	mov [rdx], rdi
 	mov r9, r10
 	jmp browse_lst

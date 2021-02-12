@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 20:04:52 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/11 20:04:54 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/12 09:48:47 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,8 @@ int		main(void)
 
 	printf("\n");
 	printf("#1 atoi_base: \n");
+	printf("mine     : %d\n", ft_atoi_base("1000000", "01"));
+	printf("expected : %d\n", atoi_base("1000000", "01"));
 	printf("mine     : %d\n", ft_atoi_base("2147483647", "0123456789"));
 	printf("expected : %d\n", atoi_base("2147483647", "0123456789"));
 	printf("mine     : %d\n", ft_atoi_base("ff", "0123456789abcdef"));
@@ -299,6 +301,14 @@ int		main(void)
 	printf("expected : %d\n", list_size(elem));
 	printf("\n");
 
+	s.data = "hi ";
+	s.next = 0;
+	elem = &s;
+
+	printf("mine     : %d\n", ft_list_size(elem));
+	printf("expected : %d\n", list_size(elem));
+	printf("\n");
+
 	printf("mine     : %d\n", ft_list_size(NULL));
 	printf("expected : %d\n", list_size(NULL));
 
@@ -310,7 +320,6 @@ int		main(void)
 	list_push_front(&elem, strdup("b"));
 	list_push_front(&elem, strdup("c"));
 	list_push_front(&elem, strdup("d"));
-	printf("\n");
 	printf("\n");
 
 	printf("initial :\n");
@@ -325,7 +334,6 @@ int		main(void)
 	list_push_front(&elem, strdup("b"));
 	list_push_front(&elem, strdup("c"));
 	list_push_front(&elem, strdup("d"));
-	printf("\n");
 
 	printf("expected: \n");
 	list_sort(&elem, strcmp);
@@ -376,6 +384,8 @@ int		main(void)
 	list_push_front(&elem, strdup("to"));
 	list_push_front(&elem, strdup("to"));
 	list_push_front(&elem, strdup("welcome"));
+	printf("\n");
+
 	printf("mine     :\n");
 	ft_list_remove_if(&elem, "to", strcmp, free_fct);
 	put_lst(elem);

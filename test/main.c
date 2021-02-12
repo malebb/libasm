@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 20:04:37 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/11 20:04:41 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/12 09:42:31 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ int	main(void)
 	printf("<--Mandatory part-->");
 	printf("\n");
 	printf("#1 strlen:\n");
-	printf("expected : %lu\n", strlen("hi there"));
 	printf("mine     : %lu\n", ft_strlen("hi there"));
-	printf("expected : %lu\n", strlen("clouds look like sheep"));
+	printf("expected : %lu\n", strlen("hi there"));
 	printf("mine     : %lu\n", ft_strlen("clouds look like sheep"));
+	printf("expected : %lu\n", strlen("clouds look like sheep"));
+	printf("mine     : %lu\n", ft_strlen(""));
+	printf("expected : %lu\n", strlen(""));
 	printf("\n");
 	
 	printf("#2 strcpy:\n");
@@ -44,6 +46,8 @@ int	main(void)
 	printf("#3 strcmp: \n");
 	printf("mine     : %d\n", ft_strcmp("abc", "abc"));
 	printf("expected : %d\n", strcmp("abc", "abc"));
+	printf("mine     : %d\n", ft_strcmp("jjjR77", "jjjR7,"));
+	printf("expected : %d\n", strcmp("jjjR77", "jjjR7,"));
 	printf("mine     : %d\n", ft_strcmp("abcd", "abc"));
 	printf("expected : %d\n", strcmp("abcd", "abc"));
 	printf("mine     : %d\n", ft_strcmp("abc", "abcd"));
@@ -101,6 +105,10 @@ int	main(void)
 	printf("mine     : %s\n", s1 = ft_strdup("i wish i was a rainbow"));
 	free(s1);
 	printf("expected : %s\n", s1 = strdup("i wish i was a rainbow"));
+	free(s1);
+	printf("mine     : %s\n", s1 = ft_strdup("M"));
+	free(s1);
+	printf("expected : %s\n", s1 = strdup("M"));
 	free(s1);
 	printf("mine     : %s\n", s1 = ft_strdup(""));
 	free(s1);
