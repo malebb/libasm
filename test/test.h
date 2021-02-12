@@ -6,7 +6,7 @@
 /*   By: mlebrun <mlebrun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 20:05:11 by mlebrun           #+#    #+#             */
-/*   Updated: 2021/02/11 20:05:13 by mlebrun          ###   ########.fr       */
+/*   Updated: 2021/02/12 10:08:32 by mlebrun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ int			ft_strcmp(const char *s1, const char *s2);
 ssize_t		ft_write(int fd, const void *buf, size_t count);
 ssize_t		ft_read(int fd, void *buf, size_t count);
 char		*ft_strdup(const char *s);
+
 int			ft_atoi_base(char *str, char *base);
-int			atoi_base(char *str, char *base);
 int			ft_list_size(t_list *begin_list);
 void		ft_list_push_front(t_list **begin_list, void *data);
-void		fill_address(char *dst, char *src);
 void 		ft_list_sort(t_list **begin_list, int (*cmp)());
 void		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
